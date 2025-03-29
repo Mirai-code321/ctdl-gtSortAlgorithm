@@ -79,6 +79,27 @@ void duyetRLN(TREE t) {
 	}
 }
 
+void soluongsoluongnguyento(TREE t, int& dem) {
+	if (t != NULL) {
+		if (KiemTraSNT(t->data) == true) {
+			dem++;
+		}
+	}
+	soluongsoluongnguyento(t->pLeft, dem);
+	soluongsoluongnguyento(t->pRight, dem);
+}
+bool KiemTraSNT(int n) {
+	if (n < 2) {
+		return false;
+	}
+	for (int i = 2; i < sqrt(n); i++) {
+		if (n % 2 == 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
 void Menu(TREE& t) {
 	while (true) {
 		cout << "\n========MENU=========";
@@ -89,10 +110,11 @@ void Menu(TREE& t) {
 		cout << "\n5.Xuat du lieu theo RNL";
 		cout << "\n6.Xuat du lieu theo LRN";
 		cout << "\n7.Xuat du lieu theo RLN";
+		cout << "\n8.dem so luong so nguyen to";
 		cout << "\n0.End";
 		cout << "\n====================" << endl;
 		int lc; cout << "Nhap lua chon "; cin >> lc;
-		if (lc < 0 || lc>7) {
+		if (lc < 0 || lc>8) {
 			cout << "Lua chon khong hop le!" << endl;
 		}
 
@@ -123,6 +145,11 @@ void Menu(TREE& t) {
 		else if (lc == 7) {
 			cout << "Duyet theo RLN: ";
 			duyetRLN(t);
+		}
+		else if (lc == 8) {
+			int dem = 0;
+			soluongsoluongnguyento(t, dem);
+			cout << "so luong nguyen to; " << dem << endl;
 		}
 		else {
 			break;
